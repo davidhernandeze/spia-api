@@ -20,3 +20,9 @@ Route::get('led-status', function() {
       'led_status' => $led->power
     ];
 });
+
+Route::get('defaul-user', function() {
+    DB::table('users')->insert(
+        array('power' => 0,)
+    );
+});
