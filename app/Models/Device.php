@@ -10,4 +10,9 @@ class Device extends Model
     protected $fillable = ['automatic_mode', 'hours_to_repeat',
         'temperature', 'next_irrigation', 'last_irrigation',
         'watering_seconds', 'last_setting_change'];
+
+    public function plants ()
+    {
+        return $this->hasMany('App\Models\Plant', 'device_id');
+    }
 }

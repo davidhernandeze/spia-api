@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Device;
+use App\Models\Plant;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DeviceController extends Controller
@@ -19,6 +21,20 @@ class DeviceController extends Controller
             'last_setting_change' => '2018-02-14 05:52:56'
         ]);
         $device->save();
+        $plant = new Plant([
+            'device_id' => $device->id,
+            'humidity' => "0",
+            'max_humidity' => "0",
+        ]);
+        $plant->save();
+
+        $plant = new Plant([
+            'device_id' => $device->id,
+            'humidity' => "0",
+            'max_humidity' => "0",
+        ]);
+        $plant->save();
+
         return $device;
     }
 
@@ -30,6 +46,10 @@ class DeviceController extends Controller
     public function update(Device $device, Request $request)
     {
         $device->update($request->all());
+        if($request['source'] == 'app') {
+            $device->last_setting_change = Carbon::now()->toDateTimeString();
+            $device->save();
+        }
         return $device;
     }
 
