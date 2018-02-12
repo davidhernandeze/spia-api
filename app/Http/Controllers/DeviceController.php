@@ -40,7 +40,13 @@ class DeviceController extends Controller
 
     public function show(Device $device)
     {
-        return $device;
+        $response = collect($device);
+        $n = 0;
+        foreach ($device->plants as $plant) {
+            $n++;
+            $response['max_humidity_'.$n] = $plant->max_humidity;
+        }
+        return $response;
     }
 
     public function update(Device $device, Request $request)
