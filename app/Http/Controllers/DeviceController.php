@@ -69,4 +69,15 @@ class DeviceController extends Controller
         }
         return "false";
     }
+
+    public function updateLast (Device $device)
+    {
+        $lastIrrigation = Carbon::now();
+        $nextIrrigation = $lastIrrigation->copy()
+            ->addHours($device->hours_to_repeat);
+        $device->last_irrigation = $lastIrrigation->toDateTimeString();
+        $device->next_irrigation = $nextIrrigation->toDateTimeString();
+        $device->save();
+        return response()->json(['next_irrigation' => $device->next_irrigation]);
+    }
 }
