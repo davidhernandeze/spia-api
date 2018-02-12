@@ -2,27 +2,10 @@
 
 use Illuminate\Http\Request;
 
-Route::get('led-on', function() {
-    DB::table('leds')->where('id', '1')->update(['power' => 1]);
-    $led = DB::table('leds')->where('id', '1')->first();
-    return json_encode($led);
-});
+Route::get('/devices/{device}', 'DeviceController@show');
+Route::patch('/devices/{device}', 'DeviceController@update');
+Route::get('/devices/{device}/check-for-updates', 'DeviceController@checkForUpdates');
 
-Route::get('led-off', function() {
-    DB::table('leds')->where('id', '1')->update(['power' => 0]);
-    $led = DB::table('leds')->where('id', '1')->first();
-    return json_encode($led);
-});
-
-Route::get('led-status', function() {
-    $led = DB::table('leds')->where('id', '1')->first();
-    return [
-      'led_status' => $led->power
-    ];
-});
-
-Route::get('defaul-led', function() {
-    DB::table('leds')->insert(
-        array('power' => 0,)
-    );
-});
+Route::get('/devices/{device}/plants/{plant}', 'PlantController@show');
+Route::get('/devices/{device}/plants', 'PlantController@index');
+Route::patch('/devices/{device}/plants/{plant}', 'PlantController@update');
