@@ -7,6 +7,21 @@ use Illuminate\Http\Request;
 
 class DeviceController extends Controller
 {
+    public function init()
+    {
+        $device = new Device([
+            'automatic_mode' => 'on',
+            'hours_to_repeat' => 0,
+            'temperature' => '12C',
+            'next_irrigation' => '2018-02-14 05:52:56',
+            'last_irrigation' => '2018-02-14 05:52:56',
+            'watering_seconds' => '12',
+            'last_setting_change' => '2018-02-14 05:52:56'
+        ]);
+        $device->save();
+        return $device;
+    }
+
     public function show(Device $device)
     {
         return $device;
