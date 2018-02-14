@@ -65,13 +65,10 @@ class DeviceController extends Controller
         $actualUpdate = $request['last_update'];
         $response = [
             'settings' => 'false',
-            'pump_on' => 'false'
+            'pump' => $device->pump_requested
         ];
         if ($actualUpdate != $lastUpdate) {
            $response['settings'] = 'true';
-        }
-        if ($device->pump_requested == 'true') {
-            $response['pump_on'] = 'true';
         }
         return $response;
     }
@@ -81,16 +78,25 @@ class DeviceController extends Controller
         if ($device->automatic_mode == 'on') {
             return response()->json(['error' => 'Manual mode is off']);
         }
-        $device->pump_requested = 'true';
+        $device->pump_requested = 'on';
         $device->save();
         return response()->json(['success' => 'Pump on sent to Arduino']);
     }
-    public function pumpDone (Device $device, Request $request)
+    public function pumpOff (Device $device)
+    {
+        if ($device->automatic_mode == 'on') {
+            return response()->json(['error' => 'Manual mode is off']);
+        }
+        $device->pump_requested = 'off';
+        $device->save();
+        return response()->json(['success' => 'Pump off sent to Arduino']);
+    }
+    public function pumpDone (Device $device)
     {
         $lastIrrigation = Carbon::now();
         if ($device->automatic_mode == 'off') {
             $device->last_irrigation = $lastIrrigation->toDateTimeString();
-            $device->pump_requested = 'false';
+            $device->pump_requested = 'off';
             $device->save();
             return response()->json(['next_irrigation' => 'Manual mode active']);
         }

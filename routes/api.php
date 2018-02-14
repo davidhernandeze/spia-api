@@ -7,6 +7,7 @@ Route::get('/devices/{device}', 'DeviceController@show');
 Route::patch('/devices/{device}', 'DeviceController@update');
 
 Route::get('/devices/{device}/pump-on', 'DeviceController@pumpOn');
+Route::get('/devices/{device}/pump-off', 'DeviceController@pumpOff');
 Route::get('/devices/{device}/pump-done', 'DeviceController@pumpDone');
 
 Route::get('/devices/{device}/check-for-updates', 'DeviceController@checkForUpdates');
