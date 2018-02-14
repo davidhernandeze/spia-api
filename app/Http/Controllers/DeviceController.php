@@ -73,6 +73,10 @@ class DeviceController extends Controller
     public function updateLast (Device $device)
     {
         $lastIrrigation = Carbon::now();
+        if ($device->automatic_mode == 'false') {
+            $device->last_irrigation = $lastIrrigation->toDateTimeString();
+            return response()->json(['next_irrigation' => 'No asignado, modo manual activo']);
+        }
         $nextIrrigation = $lastIrrigation->copy()
             ->addHours($device->hours_to_repeat);
         $device->last_irrigation = $lastIrrigation->toDateTimeString();
