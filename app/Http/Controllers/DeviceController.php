@@ -46,6 +46,8 @@ class DeviceController extends Controller
             $n++;
             $response['max_humidity_'.$n] = $plant->max_humidity;
         }
+        $lastUpdate = str_replace(' ', '%20', $response['last_setting_change']);
+        $response['last_setting_change'] = $lastUpdate;
         return $response;
     }
 
@@ -69,6 +71,9 @@ class DeviceController extends Controller
         ];
         if ($actualUpdate != $lastUpdate) {
            $response['settings'] = 'true';
+        }
+        if ($device->automatic_mode == 'on') {
+            $response['pump'] = 'off';
         }
         return $response;
     }
