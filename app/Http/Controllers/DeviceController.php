@@ -61,14 +61,12 @@ class DeviceController extends Controller
         }
         $lastUpdate = str_replace(' ', '%20', $response['last_setting_change']);
         $response['last_setting_change'] = $lastUpdate;
-        return [
-            'am' => $response['automatic_mode'],
-            'ni' => $response['next_irrigation'],
-            'ws' => $response['watering_seconds'],
-            'ls' => $response['last_setting_change'],
-            'm1' => $response['m1'],
-            'm2' => $response['m2'],
-        ];
+        return '{'.$response['automatic_mode'].','
+                .$response['next_irrigation'].','
+                .$response['watering_seconds'].','
+                .$response['last_setting_change'].','
+                .$response['m1'].','
+                .$response['m2'].'}';
     }
 
     public function update(Device $device, Request $request)
@@ -95,10 +93,7 @@ class DeviceController extends Controller
         if ($device->automatic_mode == 'on') {
             $response['pump'] = 'off';
         }
-        return [
-          's' => $response['settings'],
-          'p' => $response['pump']
-        ];
+        return '{'.$response['settings'] . ', ' . $response['pump'].'}';
     }
 
     public function pumpOn(Device $device)
