@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 
 Route::get('/devices/create_main_device', 'DeviceController@init');
 Route::get('/devices/{device}', 'DeviceController@show');
+Route::get('/devices/{device/patch', 'DeviceController@updateFromArduino');
 Route::get('/devices/arduino/{device}', 'DeviceController@showForArduino');
 Route::patch('/devices/{device}', 'DeviceController@update');
 

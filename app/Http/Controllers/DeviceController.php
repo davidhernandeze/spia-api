@@ -61,12 +61,12 @@ class DeviceController extends Controller
         }
         $lastUpdate = str_replace(' ', '%20', $response['last_setting_change']);
         $response['last_setting_change'] = $lastUpdate;
-        return '{'.$response['automatic_mode'].','
-                .$response['next_irrigation'].','
-                .$response['watering_seconds'].','
-                .$response['last_setting_change'].','
-                .$response['m1'].','
-                .$response['m2'].'}';
+        return '{' . $response['automatic_mode'] . ','
+            . $response['next_irrigation'] . ','
+            . $response['watering_seconds'] . ','
+            . $response['last_setting_change'] . ','
+            . $response['m1'] . ','
+            . $response['m2'] . '}';
     }
 
     public function update(Device $device, Request $request)
@@ -93,7 +93,7 @@ class DeviceController extends Controller
         if ($device->automatic_mode == 'on') {
             $response['pump'] = 'off';
         }
-        return '{'.$response['settings'] . ', ' . $response['pump'].'}';
+        return '{' . $response['settings'] . ', ' . $response['pump'] . '}';
     }
 
     public function pumpOn(Device $device)
@@ -131,5 +131,11 @@ class DeviceController extends Controller
         $device->next_irrigation = $nextIrrigation->toDateTimeString();
         $device->save();
         return response()->json(['next_irrigation' => $device->next_irrigation]);
+    }
+
+    public function updateFromArduino(Device $device, Request $request)
+    {
+        $device->update($request->all());
+        return $device;
     }
 }
