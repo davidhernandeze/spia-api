@@ -25,6 +25,7 @@ class PlantController extends Controller
         if($request['source'] == 'app') {
             $device = $plant->device;
             $device->last_setting_change = Carbon::now()->toDateTimeString();
+            $device->save();
         }
         return $plant;
     }

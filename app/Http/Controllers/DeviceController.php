@@ -123,14 +123,16 @@ class DeviceController extends Controller
             $device->last_irrigation = $lastIrrigation->toDateTimeString();
             $device->pump_requested = 'off';
             $device->save();
-            return response()->json(['next_irrigation' => 'Manual mode active']);
+            return 'false';
         }
         $nextIrrigation = $lastIrrigation->copy()
             ->addHours($device->hours_to_repeat);
         $device->last_irrigation = $lastIrrigation->toDateTimeString();
         $device->next_irrigation = $nextIrrigation->toDateTimeString();
         $device->save();
-        return response()->json(['next_irrigation' => $device->next_irrigation]);
+        return 'last: ' . $lastIrrigation . ' next: '. $nextIrrigation;
+
+        return '{'.$nextIrrigation.'}';
     }
 
     public function updateFromArduino(Device $device, Request $request)
