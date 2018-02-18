@@ -130,8 +130,6 @@ class DeviceController extends Controller
         $device->last_irrigation = $lastIrrigation->toDateTimeString();
         $device->next_irrigation = $nextIrrigation->toDateTimeString();
         $device->save();
-        return 'last: ' . $lastIrrigation . ' next: '. $nextIrrigation;
-
         return '{'.$nextIrrigation.'}';
     }
 
