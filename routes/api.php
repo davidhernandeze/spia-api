@@ -18,14 +18,3 @@ Route::get('/devices/{device}/check-for-updates', 'DeviceController@checkForUpda
 Route::get('/devices/{device}/plants', 'PlantController@index');
 Route::get('/plants/{plant}', 'PlantController@show');
 Route::patch('/plants/{plant}', 'PlantController@update');
-
-Route::get('test', function () {
-    return [
-        'am' => 'a',
-        'ni' => 'a',
-        'ws' => 'a',
-        'ls' => 'a',
-        'm1' => 'a',
-        'm2' => 'a',
-    ];
-});
