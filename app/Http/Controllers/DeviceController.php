@@ -134,16 +134,18 @@ class DeviceController extends Controller
 
     public function updateFromArduino(Device $device, Request $request)
     {
-        $device->update($request->all());
-        if($request['humidity1']) {
+        if ($request['t']) {
+            $device->temperature = $request['t'];
+        }
+        if($request['h1']) {
             $plant1 = Plant::findOrFail(1);
-            $plant1->humidity = $request['humidity1'];
+            $plant1->humidity = $request['h1'];
             $plant1->save();
         }
 
-        if($request['humidity2']) {
+        if($request['2']) {
             $plant1 = Plant::findOrFail(2);
-            $plant1->humidity = $request['humidity2'];
+            $plant1->humidity = $request['h2'];
             $plant1->save();
         }
         return 'success';
