@@ -121,7 +121,6 @@ class DeviceController extends Controller
         $lastIrrigation = Carbon::now();
         if ($device->automatic_mode == 'off') {
             $device->last_irrigation = $lastIrrigation->toDateTimeString();
-            $device->pump_requested = 'off';
             $device->save();
             return 'false';
         }
