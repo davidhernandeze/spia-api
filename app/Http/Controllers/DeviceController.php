@@ -147,8 +147,7 @@ class DeviceController extends Controller
             $plant1->humidity = $request['humidity2'];
             $plant1->save();
         }
-
-        return $device;
+        return response('', 200);
     }
 
 }
