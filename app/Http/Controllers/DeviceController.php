@@ -136,14 +136,14 @@ class DeviceController extends Controller
     {
         if ($request['t']) {
             $device->temperature = $request['t'];
+            $device->save();
         }
         if($request['h1']) {
             $plant1 = Plant::findOrFail(1);
             $plant1->humidity = $request['h1'];
             $plant1->save();
         }
-
-        if($request['2']) {
+        if($request['h2']) {
             $plant1 = Plant::findOrFail(2);
             $plant1->humidity = $request['h2'];
             $plant1->save();
